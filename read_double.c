@@ -66,6 +66,7 @@ double convert_to_double(const char *digits){
     //     sum = sum + (position*(*digits - '0'));
     // }
     // return sum;
+    int integer = 0;
     int sum1 = 0;
     double sum2 = 0;
     double sum3 = 0;
@@ -76,6 +77,13 @@ double convert_to_double(const char *digits){
         sum1 = 10 * sum1 + (digits[i] - '0');
         i++;
         post_point++;
+        if (digits[i] == '\0'){
+          integer = 1;
+          break;
+        }
+    }
+    if (integer == 1){
+      return sum1;
     }
     i++;
     while (digits[i] != '\0'){
