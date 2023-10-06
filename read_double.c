@@ -25,41 +25,68 @@ int read_real(char* digits, int n, double* num){
 int is_valid_double(const char* digits){
     int valid = 1;
     int i;
-    int count = 1;
+    int count = 0;
     
     if(digits[0] == '+' || digits[0] == '-'){
         i = 1;
     } else {
         i = 0;
     }
-    printf("%s","pass 2");
+    if (digits[i] == '\0'){
+      valid = 0;
+    }else{
+      printf("%s","pass 2");
     while (valid && (digits[i] != '\0')) {
       printf("%s","passing 3");
         if(digits[i] < '0' ||  digits[i] > '9'){
-            if(digits[i] == '.' && count){
-                count--;
+            if(digits[i] == '.' && count==0){
+                count = 1;
             }else{
                 valid = 0;
             }
         }
         i++;
     }
+    }
   printf("%s","pass 3");
   return valid;
 }
 double convert_to_double(const char *digits){
-    float sum = 0;
+    // float sum = 0;
+    // int i = 0;
+    // float position = 1;
+    // while(*digits != '.') {
+    //     sum = 10 * sum + (*digits - '0');
+    //     digits++;
+    // }
+    // while(*digits != '\0') {
+    //     for (int a = 0; a <= i; a++){
+    //         position = position * 0.1;
+    //     }
+    //     sum = sum + (position*(*digits - '0'));
+    // }
+    // return sum;
+    int sum1 = 0;
+    double sum2 = 0;
+    double sum3 = 0;
     int i = 0;
-    float position = 1;
-    while(*digits != '.') {
-        sum = 10 * sum + (*digits - '0');
-        digits++;
+    int a;
+    int post_point = 0;
+    while(digits[i] != '.') {
+        sum1 = 10 * sum1 + (digits[i] - '0');
+        i++;
+        post_point++;
     }
-    while(*digits != '\0') {
-        for (int a = 0; a <= i; a++){
-            position = position * 0.1;
-        }
-        sum = sum + (position*(*digits - '0'));
+    i++;
+    while (digits[i] != '\0'){
+        i++;
     }
-    return sum;
+    for (a = i-1; a>post_point; a--){
+        sum2 = 0.1 * sum2 + (digits[a] - '0');
+        printf("%f\n", sum2);
+    }
+    sum2 = sum2*0.1;
+    printf("%d  |  %f", sum1, sum2);
+    sum3 = sum1 + sum2;
+    return sum3;
 }
